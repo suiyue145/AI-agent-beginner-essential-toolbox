@@ -1,69 +1,83 @@
-# 版权声明与许可协议（非商用 / Non-Commercial License）
+# 版权声明与许可协议（非商用） / Copyright Notice and License Agreement (Non-Commercial)
 
-> 著作权人：suiyue145
-> 创作年份：2026
-> 作品名称：prework-toolcheck
-> 版本：2.0 ｜ 生效日期：2026-11-27
+> 著作权人 / Copyright Holder：suiyue145
+> 创作年份 / Year of Creation：2026
+> 作品名称 / Work：prework-toolcheck
+> 版本 / Version：2.0 ｜ 生效日期 / Effective Date：2026-11-27
 
 本声明适用于 {{SKILL_NAME}} 的全部文件与材料，包括但不限于 `SKILL.md`、脚本、参考文档、提示词模板、配置文件、示例数据及其任何副本（以下统称「本软件」）。你下载、安装、导入、运行或复制本软件，即表示你已阅读并同意本声明。
 
+This Notice applies to all files and materials of {{SKILL_NAME}}, including but not limited to `SKILL.md`, scripts, reference documents, prompt templates, configuration files, sample data, and any copies thereof (collectively, the "Software"). By downloading, installing, importing, running, or copying the Software, you acknowledge that you have read and agreed to this Notice.
+
 ---
 
-## 一、授予的许可
+## 一、授予的许可 / 1. License Grant
 
 在遵守本声明的前提下，著作权人授予你一项**免费、不可转让、非独占**的许可，允许你：
 
-1. 下载、安装、导入、运行本软件；
-2. 为**本人自用**目的修改本软件的配置、提示词与脚本；
-3. 复制、传播本软件的副本，但须完整保留本声明全文及著作权人信息。
+Subject to this Notice, the Copyright Holder grants you a **free, non-transferable, non-exclusive** license to:
 
-## 二、商业使用限制（重要）
+1. 下载、安装、导入、运行本软件；Download, install, import, and run the Software;
+2. 为**本人自用**目的修改本软件的配置、提示词与脚本；Modify the configuration, prompts, and scripts of the Software **for your own personal use**;
+3. 复制、传播本软件的副本，但须完整保留本声明全文及著作权人信息。Copy and distribute copies of the Software, provided that this Notice and the copyright holder information are retained in full.
+
+## 二、商业使用限制（重要）/ 2. Commercial Use Restrictions (Important)
 
 **本软件仅限个人、非商业性使用。** 未经著作权人事先书面许可，禁止将本软件用于任何商业目的，包括但不限于：
 
-1. 在商业产品、商业服务、商业平台或商业工作流中集成、部署、嵌入、调用本软件；
-2. 以收费、订阅、授权、赞助换取交付或其他任何有偿方式，向第三方提供本软件或其衍生作品；
-3. 将本软件作为商业培训、咨询、代运营、外包交付等服务的组成部分；
-4. 任何直接或间接为你或第三方产生商业收益的使用。
+**The Software is for personal, non-commercial use only.** Without prior written permission from the Copyright Holder, any commercial use of the Software is prohibited, including but not limited to:
+
+1. 在商业产品、商业服务、商业平台或商业工作流中集成、部署、嵌入、调用本软件；Integrating, deploying, embedding, or invoking the Software in any commercial product, service, platform, or workflow;
+2. 以收费、订阅、授权、赞助换取交付或其他任何有偿方式，向第三方提供本软件或其衍生作品；Providing the Software or derivative works to third parties for a fee, subscription, license, sponsorship in exchange for delivery, or any other form of compensation;
+3. 将本软件作为商业培训、咨询、代运营、外包交付等服务的组成部分；Using the Software as part of commercial training, consulting, managed services, outsourcing, or similar services;
+4. 任何直接或间接为你或第三方产生商业收益的使用。Any use that directly or indirectly generates commercial benefit for you or any third party.
 
 前述「调用」包括通过命令行、应用程序接口、自动化脚本、其他 Skill 或任何程序化方式调用本软件的功能；「商业收益」包括金钱及可折算为金钱的利益。
 
-## 三、你自己产出的内容
+"Invoking" includes calling the Software's functions via command line, application programming interface, automation scripts, other Skills, or any programmatic means; "commercial benefit" includes money and any benefit convertible into money.
+
+## 三、你自己产出的内容 / 3. Content You Produce
 
 你使用本软件生成的文档、代码、图像、数据等成果归你所有。著作权人不对你运行本软件得到的结果主张任何权利，即使该结果中包含著作权人享有权利的内容。你应对产出内容自行审核后再使用或发布。
 
-## 四、第三方依赖与开源组件
+Documents, code, images, data, and other outputs you generate using the Software belong to you. The Copyright Holder claims no rights in the results of your use of the Software, even if such results contain content in which the Copyright Holder holds rights. You should review such outputs yourself before using or publishing them.
 
-1. 本软件若包含第三方开源组件，该组件适用其**原始开源许可**，不因本声明而改变；你应遵守相应的署名、保留许可文本及衍生作品义务。
-2. 本软件位于聚合仓库时，仓库 `vendor/` 等目录下的第三方组件保留其原始许可（详见 `vendor/LICENSE-MIT`）；本声明仅适用于著作权人创作的部分。
-3. 本软件运行所依赖的 AI 平台、模型服务、支付或登录服务各有独立条款；相关订阅费、API 费用、账号成本由你自行承担。
-4. 著作权人不对第三方组件或服务的安全性、可用性、准确性承担责任。
+## 四、第三方依赖与开源组件 / 4. Third-Party Dependencies and Open-Source Components
 
-## 五、免责声明（As Is）
+1. 本软件若包含第三方开源组件，该组件适用其**原始开源许可**，不因本声明而改变；你应遵守相应的署名、保留许可文本及衍生作品义务。If the Software contains third-party open-source components, such components remain under their **original open-source licenses** and are not affected by this Notice; you shall comply with applicable attribution, license-retention, and derivative-work obligations.
+2. 本软件位于聚合仓库时，仓库 `vendor/` 等目录下的第三方组件保留其原始许可（详见 `vendor/LICENSE-MIT`）；本声明仅适用于著作权人创作的部分。When the Software resides in an aggregated repository, third-party components under directories such as `vendor/` retain their original licenses (see `vendor/LICENSE-MIT`); this Notice applies only to portions created by the Copyright Holder.
+3. 本软件运行所依赖的 AI 平台、模型服务、支付或登录服务各有独立条款；相关订阅费、API 费用、账号成本由你自行承担。AI platforms, model services, payment or login services required to run the Software have their own independent terms; related subscription fees, API fees, and account costs are borne by you.
+4. 著作权人不对第三方组件或服务的安全性、可用性、准确性承担责任。The Copyright Holder is not responsible for the security, availability, or accuracy of third-party components or services.
 
-1. 本软件按「**现状**」提供，不提供任何明示或暗示的担保，包括但不限于适销性、特定用途适用性、不侵权及无错误担保。
-2. 著作权人不保证本软件适用于你的具体环境，不承诺任何特定结果、业务成效、排名、收益、学习效果或性能提升。
-3. 本软件可能包含指令、代码、集成或外部依赖，会影响你的本地机器、云端环境、数据、代码仓库、账单或账号权限。你应在受控环境中**先行审查、测试并自行承担运行风险**；即使经过安全扫描，也不代表绝对安全。
-4. 因使用、误用或无法使用本软件产生的任何直接、间接、附带、后果性、惩罚性损失，包括但不限于数据丢失、系统故障、合规风险或业务中断，著作权人不承担责任。
+## 五、免责声明（As Is）/ 5. Disclaimer (As Is)
 
-## 六、AI 生成内容标识
+1. 本软件按「**现状**」提供，不提供任何明示或暗示的担保，包括但不限于适销性、特定用途适用性、不侵权及无错误担保。The Software is provided "**AS IS**", without warranties of any kind, express or implied, including but not limited to merchantability, fitness for a particular purpose, non-infringement, and error-free operation.
+2. 著作权人不保证本软件适用于你的具体环境，不承诺任何特定结果、业务成效、排名、收益、学习效果或性能提升。The Copyright Holder does not warrant that the Software is suitable for your specific environment, nor promise any particular results, business outcomes, rankings, revenue, learning effects, or performance improvements.
+3. 本软件可能包含指令、代码、集成或外部依赖，会影响你的本地机器、云端环境、数据、代码仓库、账单或账号权限。你应在受控环境中**先行审查、测试并自行承担运行风险**；即使经过安全扫描，也不代表绝对安全。The Software may contain instructions, code, integrations, or external dependencies that affect your local machine, cloud environment, data, repositories, billing, or account permissions. You should **review and test it in a controlled environment and bear the runtime risks yourself**; even a security scan does not guarantee absolute safety.
+4. 因使用、误用或无法使用本软件产生的任何直接、间接、附带、后果性、惩罚性损失，包括但不限于数据丢失、系统故障、合规风险或业务中断，著作权人不承担责任。The Copyright Holder is not liable for any direct, indirect, incidental, consequential, or punitive damages arising from the use, misuse, or inability to use the Software, including but not limited to data loss, system failure, compliance risk, or business interruption.
+
+## 六、AI 生成内容标识 / 6. AI-Generated Content Labeling
 
 如你使用本软件生成的内容属于依法需要标识的 AI 生成合成内容，你应按照《人工智能生成合成内容标识办法》等适用法律法规，在显著位置添加清晰标识，并保留必要的隐式标识。
 
-## 七、变更与终止
+If content you generate using the Software qualifies as AI-generated synthetic content that must be labeled by law, you shall add clear labels in prominent positions and retain necessary implicit labels in accordance with applicable laws and regulations, including the *Measures for Labeling AI-Generated Synthetic Content*.
 
-1. 著作权人可更新本声明；更新后继续下载、安装或使用本软件，即视为你接受更新后的声明。
-2. 若你违反本声明，授予的许可自动终止，你应停止使用并删除本软件的副本。
+## 七、变更与终止 / 7. Changes and Termination
 
-## 八、商业授权
+1. 著作权人可更新本声明；更新后继续下载、安装或使用本软件，即视为你接受更新后的声明。The Copyright Holder may update this Notice; continued downloading, installation, or use of the Software after an update constitutes acceptance of the updated Notice.
+2. 若你违反本声明，授予的许可自动终止，你应停止使用并删除本软件的副本。If you violate this Notice, the license granted herein terminates automatically, and you shall stop using and delete all copies of the Software.
+
+## 八、商业授权 / 8. Commercial Licensing
 
 如需商业使用授权，请联系著作权人取得**书面许可**。未取得书面许可的商业使用均属违反本声明。
 
-联系方式：zhangzan125@yeah.net
+For commercial use authorization, please contact the Copyright Holder to obtain **written permission**. Any commercial use without written permission constitutes a violation of this Notice.
 
-## 九、其他
+联系方式 / Contact：zhangzan125@yeah.net
 
-1. 本声明受著作权人所在地法律管辖；因本声明产生的争议，双方应友好协商，协商不成的按适用法律解决。
-2. 分发或改编本软件时，须保留本声明全文及著作权人信息；改编版本应明确标注修改事实，不得冒充原作。
-3. 本声明的标题仅为阅读方便，不影响条款含义。
-4. 本声明最终解释权归著作权人所有。
+## 九、其他 / 9. Miscellaneous
+
+1. 本声明受著作权人所在地法律管辖；因本声明产生的争议，双方应友好协商，协商不成的按适用法律解决。This Notice is governed by the laws of the jurisdiction where the Copyright Holder resides; disputes arising from this Notice shall be resolved through friendly negotiation, failing which in accordance with applicable law.
+2. 分发或改编本软件时，须保留本声明全文及著作权人信息；改编版本应明确标注修改事实，不得冒充原作。When distributing or adapting the Software, this Notice and the copyright holder information must be retained in full; adapted versions shall clearly indicate the modifications and shall not be passed off as the original.
+3. 本声明的标题仅为阅读方便，不影响条款含义。Headings in this Notice are for convenience only and do not affect the interpretation of any clause.
+4. 本声明最终解释权归著作权人所有。The Copyright Holder reserves the right of final interpretation of this Notice.
