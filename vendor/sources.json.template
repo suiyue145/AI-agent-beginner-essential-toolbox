@@ -1,0 +1,77 @@
+{
+  "github:top-agent-skills": {
+    "type": "github_search",
+    "query": "claude-code skill OR agent skill OR MCP server",
+    "sort": "stars",
+    "url": "https://api.github.com/search/repositories",
+    "enabled": true
+  },
+  "github:hermes-skills": {
+    "type": "github_search",
+    "query": "hermes agent skill",
+    "sort": "stars",
+    "url": "https://api.github.com/search/repositories",
+    "enabled": true
+  },
+  "github:mcp-servers": {
+    "type": "github_search",
+    "query": "MCP server OR model-context-protocol",
+    "sort": "stars",
+    "url": "https://api.github.com/search/repositories",
+    "enabled": true
+  },
+  "github:cursor-rules": {
+    "type": "github_search",
+    "query": ".cursorrules OR CLAUDE.md agent skill",
+    "sort": "stars",
+    "url": "https://api.github.com/search/repositories",
+    "enabled": true
+  },
+  "hermes-skills-hub": {
+    "type": "url",
+    "url": "https://hermes-agent.nousresearch.com/docs/skills",
+    "query": "Hermes Agent Skills Hub",
+    "enabled": true
+  },
+  "hermes-skills-sitemap": {
+    "type": "url",
+    "url": "https://hermes-agent.nousresearch.com/docs/sitemap.xml",
+    "query": "Hermes Agent skill sitemap",
+    "enabled": true
+  },
+  "skillsh-hot": {
+    "type": "skills_sh",
+    "pages": [
+      "/hot",
+      "/agent/codex",
+      "/agent/claude-code",
+      "/agent/cursor"
+    ],
+    "per_page": 40,
+    "query": "skills.sh hot + per-agent popular skills",
+    "enabled": true
+  },
+  "github:workbuddy-skills": {
+    "type": "github_search",
+    "query": "topic:workbuddy",
+    "sort": "stars",
+    "url": "https://api.github.com/search/repositories",
+    "enabled": true
+  },
+  "github:official-catalogs": {
+    "type": "github_repos",
+    "repos": [
+      "anthropics/skills",
+      "openai/skills",
+      "vercel-labs/skills",
+      "deepseek-ai/deepseek-harness",
+      "NousResearch/hermes-agent",
+      "addyosmani/agent-skills",
+      "antfu/skills",
+      "affaan-m/ECC",
+      "callstackincubator/agent-skills"
+    ],
+    "query": "official skill catalogs: Anthropic / Codex / Vercel / DeepSeek Harness / Hermes",
+    "enabled": true
+  }
+}

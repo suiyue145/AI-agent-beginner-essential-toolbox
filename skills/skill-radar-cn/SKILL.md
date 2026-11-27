@@ -1,7 +1,7 @@
 ---
 name: skill-radar-cn
 description: "开工前扫描必用工具并列出候选清单供用户选用。当用户说『开工前帮我看看有哪些工具能用/有什么工具适合这个任务/扫一下有没有现成的工具或技能/这个活儿有没有现成的skill/先找找有没有能用的工具/有哪些MCP或技能可以帮我做X/看看本机能用什么工具/调研一下有什么现成方案可以用』时触发。从 GitHub、MCP 注册表、技能市场扫描相关技能/工具，按相关度+星标+新鲜度评分，只推荐绝不自动安装，列出清单让用户挑选。注意：本技能只做发现与推荐，不负责拆解任务与自动调用工具。"
-version: 1.5.0-cn
+version: 1.6.0-cn
 tags: ["工具发现", "开工扫描", "技能推荐", "MCP", "小白友好"]
 risk: safe
 ---
@@ -82,8 +82,19 @@ bash <本skill同级目录>/prework-toolcheck/scripts/scan.sh "<任务描述>"
 - ★100+ 星门槛过滤低信誉仓库，但星标不等于质量
 - 用户是小白，解释时用大白话，不要堆术语
 
+## 扫描范围（多平台增强版）
+
+底层 `skill-radar` 已升级为多平台扫描，覆盖：
+
+- **skills.sh 热门榜**（跨平台 SKILL.md 统一目录，按真实安装量排序，覆盖 Claude Code / Codex / Cursor / Gemini CLI / WorkBuddy / DeepSeek Harness 等）
+- **官方 skill 目录**：Anthropic、OpenAI Codex、Vercel、DeepSeek Harness（dsh）、Hermes Agent
+- **平台 topic**：WorkBuddy、codex-skills、claude-skills、agent-skills
+- **MCP 注册表** + GitHub 通用搜索
+
+可用 `skill-radar list-sources` 查看当前 9 个源。GitHub API 若提示限流，配置 `GITHUB_TOKEN` 环境变量或 `~/.workbuddy/github-publish.json` 里的 token 可提到 5000 次/小时。
+
 ## 故障排查
 
-如果报 `gh: command not found` 或 GitHub 搜索失败：说明底层补丁失效，检查 `~/.workbuddy/skill-radar/skill_radar.py` 的 `github_search` 函数是否还在用 curl（原文件备份为 `skill_radar.py.orig`）。
+如果报 `gh: command not found` 或 GitHub 搜索失败：说明底层补丁失效，检查 `~/.workbuddy/skill-radar/skill_radar.py` 的 `github_search` 函数是否还在用 curl（原文件备份为 `skill_radar.py.orig` / `skill_radar.py.bak-multipublish`）。增强版定义在 `~/.skill-radar/sources.json`，`skill_radar.py` 被覆盖可从发布包 `vendor/` 重装（`bash vendor/install.sh`）。
 
 安装位置：`~/.workbuddy/skill-radar`（cli 命令 `skill-radar`）。

@@ -83,13 +83,26 @@ python3 skills/prework-toolcheck/scripts/publish_shared_cache.py --file data/sha
 
 `prework-toolcheck` 和 `skill-radar-cn` 的**本机实时扫描**功能依赖 `skill-radar`（MIT 开源，DeezGit21/skill-radar）。不装也能用——共享结果正常显示，只是没收录的任务无法现场扫。
 
-如需完整生态扫描，安装并打两个补丁（curl 替代 gh CLI、中文关键词映射）：
+本仓库 `vendor/` 提供**多平台增强版**扫描逻辑（原版的覆盖补丁），扫描范围覆盖：
+
+- **skills.sh 热门榜**（跨平台 8000+ skill 的统一目录，按真实安装量排序）
+- **官方目录**：Anthropic skills、OpenAI Codex skills、Vercel agent-skills、DeepSeek Harness（dsh）、Hermes Agent
+- **各平台 topic**：WorkBuddy、codex-skills、claude-skills、agent-skills
+- MCP 注册表、GitHub 通用搜索
+
+安装步骤（先装原版，再用本包覆盖增强）：
 
 ```bash
+# 1) 安装原版 skill-radar（网络能通 git clone 时）
 git clone --depth 1 https://github.com/DeezGit21/skill-radar.git ~/.workbuddy/skill-radar
 cd ~/.workbuddy/skill-radar && python3 -m pip install -e .
-# 若网络能通 git clone，按仓库 README 打补丁；打不了可用本包的 github-skill-installer 走 CDN
+# 若 git clone 不通，可用本包的 github-skill-installer 走 CDN 通道装
+
+# 2) 覆盖为多平台增强版（本仓库根目录执行）
+bash vendor/install.sh
 ```
+
+增强版会自动读取本机已有的 GitHub token（环境变量 `GITHUB_TOKEN` 或 `~/.workbuddy/github-publish.json`）把 API 配额从 60 次/小时提到 5000 次/小时；不配 token 也能匿名扫描，只是较慢。`vendor/install.sh` 会先备份原文件为 `*.bak-multipublish`，可随时还原。
 
 ## 自动触发（可选，WorkBuddy 用户）
 
