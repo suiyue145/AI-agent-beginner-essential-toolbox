@@ -1,21 +1,46 @@
-MIT License
+版权声明与许可协议
 
-Copyright (c) 2026 WorkBuddy Beginner Tools contributors
+著作权人：suiyue145
+作品名称：AI-agent-beginner-essential-toolbox（WorkBuddy 小白工具包）
+创作年份：2026
 
-Permission is hereby granted, free of charge, to any person obtaining a copy
-of this software and associated documentation files (the "Software"), to deal
-in the Software without restriction, including without limitation the rights
-to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
-copies of the Software, and to permit persons to whom the Software is
-furnished to do so, subject to the following conditions:
+本声明适用于本仓库及其中全部文件（以下统称「本软件」）。
 
-The above copyright notice and this permission notice shall be included in all
-copies or substantial portions of the Software.
+一、授予的许可
 
-THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
-IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
-FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
-AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
-LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
-OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
-SOFTWARE.
+在遵守本协议的前提下，任何个人可免费、非商业性地：
+
+1. 下载、安装、运行本软件；
+2. 为本人自用目的修改本软件；
+3. 复制、传播本软件的副本，但须完整保留本声明。
+
+二、商业使用限制（重要）
+
+未经著作权人事先书面许可，禁止将本软件用于任何商业目的，
+包括但不限于下列情形：
+
+1. 在商业产品、商业服务、商业平台或商业工作流中集成、部署、调用本软件；
+2. 以收费、订阅、授权或其他有偿方式向第三方提供本软件或其衍生作品；
+3. 将本软件作为商业培训、咨询、代运营等服务的组成部分；
+4. 任何直接或间接为使用者或第三方产生商业收益的使用。
+
+前述「调用」包括通过命令行、应用程序接口、自动化脚本或其他程序化方式
+调用本软件的功能。
+
+三、其他条款
+
+1. 分发或改编本软件时，须保留本声明全文及著作权人信息；
+2. 改编版本应明确标注修改事实，不得冒充原作；
+3. 本软件按「现状」提供，不提供任何明示或暗示的担保；
+4. 因使用或无法使用本软件产生的任何损失，著作权人不承担责任；
+5. 本协议受著作权人所在地法律管辖。
+
+四、商业授权
+
+如需商业使用授权，请联系著作权人取得书面许可。未取得书面许可的商业
+使用均属违反本协议。
+
+五、第三方组件
+本仓库 vendor/ 目录下的第三方组件（skill-radar 及其增强补丁）保留其原有 MIT 许可，详见 vendor/LICENSE-MIT。本声明不适用于该目录内的第三方代码。
+
+—— 本声明最终解释权归著作权人所有。
