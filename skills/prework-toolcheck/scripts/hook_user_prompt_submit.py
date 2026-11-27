@@ -8,7 +8,7 @@ WorkBuddy UserPromptSubmit hook —— 开工自动触发引擎。
 设计要点：
 - 每个 session 只触发一次（靠 state 文件去重），不打扰后续追问。
 - 纯打招呼、极短输入、明显是确认/续话的输入不触发。
-- 可用 DISABLE 文件一键关闭：~/.workbuddy/skills/prework-toolcheck/scripts/.disabled
+- 可用 DISABLE 文件一键关闭：本技能目录下 scripts/.disabled（与你实际安装路径一致）
 - 任何异常都 fail-open（continue: true），绝不阻断用户输入。
 """
 import json

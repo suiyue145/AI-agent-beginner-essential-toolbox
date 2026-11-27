@@ -10,6 +10,10 @@ risk: safe
 
 帮你在动手之前，先看看生态里有没有现成的技能、MCP 服务器或工具可以用——只推荐、不安装，你挑中哪个再装。
 
+## 路径约定（先看这里）
+
+下文命令里的 `<你的技能目录>` 指**你把本包装到本机后的实际位置**，不是固定路径。不同 Agent 的默认技能目录不一样（例如 Claude Code 常在 `~/.claude/skills`、Codex 常在 `~/.codex/skills`），以你自己的安装位置为准，把占位符替换掉即可。`scan_cached.py` 实际位于 `prework-toolcheck` 技能内，若两个技能装在同一目录下，用 `<你的技能目录>/../prework-toolcheck/scripts/scan_cached.py`。
+
 ## 什么时候用
 
 - 你说"开工前扫一下有什么工具能用" → 用本技能
@@ -22,7 +26,7 @@ risk: safe
 ### 方式一：按任务扫描（用户给了具体任务）★ 首选
 
 ```bash
-python3 ~/.workbuddy/skills/prework-toolcheck/scripts/scan_cached.py "<用户的任务描述>"
+python3 <你的技能目录>/../prework-toolcheck/scripts/scan_cached.py "<用户的任务描述>"
 ```
 
 取结果顺序（命中即停）：
@@ -38,13 +42,13 @@ python3 ~/.workbuddy/skills/prework-toolcheck/scripts/scan_cached.py "<用户的
 
 ```bash
 # 强制本机重扫
-python3 ~/.workbuddy/skills/prework-toolcheck/scripts/scan_cached.py "<任务>" --force
+python3 <你的技能目录>/../prework-toolcheck/scripts/scan_cached.py "<任务>" --force
 # 只强制刷新公共清单
-python3 ~/.workbuddy/skills/prework-toolcheck/scripts/scan_cached.py "<任务>" --refresh-shared
+python3 <你的技能目录>/../prework-toolcheck/scripts/scan_cached.py "<任务>" --refresh-shared
 # 本次不用云端结果
-python3 ~/.workbuddy/skills/prework-toolcheck/scripts/scan_cached.py "<任务>" --no-shared
+python3 <你的技能目录>/../prework-toolcheck/scripts/scan_cached.py "<任务>" --no-shared
 # 本次扫描后不回传 GitHub
-python3 ~/.workbuddy/skills/prework-toolcheck/scripts/scan_cached.py "<任务>" --no-upload
+python3 <你的技能目录>/../prework-toolcheck/scripts/scan_cached.py "<任务>" --no-upload
 ```
 
 ### 方式二：全量扫描新工具（用户只说"扫一下"）
@@ -58,7 +62,7 @@ skill-radar cron-scan --min-stars 100
 ### 方式三：用封装脚本（结果自动存档）
 
 ```bash
-bash <本skill同级目录>/prework-toolcheck/scripts/scan.sh "<任务描述>"
+bash <你的技能目录>/../prework-toolcheck/scripts/scan.sh "<任务描述>"
 ```
 
 内部走同一份缓存，结果自动存档（可用 `WB_SCAN_OUT` 指定存档目录）。
@@ -91,10 +95,10 @@ bash <本skill同级目录>/prework-toolcheck/scripts/scan.sh "<任务描述>"
 - **平台 topic**：WorkBuddy、codex-skills、claude-skills、agent-skills
 - **MCP 注册表** + GitHub 通用搜索
 
-可用 `skill-radar list-sources` 查看当前 9 个源。GitHub API 若提示限流，配置 `GITHUB_TOKEN` 环境变量或 `~/.workbuddy/github-publish.json` 里的 token 可提到 5000 次/小时。
+可用 `skill-radar list-sources` 查看当前 9 个源。GitHub API 若提示限流，配置环境变量 `GITHUB_TOKEN`（可选）可提到 5000 次/小时；不配也能匿名扫描，只是较慢。
 
 ## 故障排查
 
-如果报 `gh: command not found` 或 GitHub 搜索失败：说明底层补丁失效，检查 `~/.workbuddy/skill-radar/skill_radar.py` 的 `github_search` 函数是否还在用 curl（原文件备份为 `skill_radar.py.orig` / `skill_radar.py.bak-multipublish`）。增强版定义在 `~/.skill-radar/sources.json`，`skill_radar.py` 被覆盖可从发布包 `vendor/` 重装（`bash vendor/install.sh`）。
+如果报 `gh: command not found` 或 GitHub 搜索失败：说明底层补丁失效，检查你安装的 `skill_radar.py`（由环境变量 `WB_SKILL_RADAR_DIR` 指定，默认 `<你的技能目录>/../skill-radar`）里的 `github_search` 函数是否还在用 curl（原文件备份为 `skill_radar.py.orig` / `skill_radar.py.bak-multipublish`）。增强版扫描源定义在 `~/.skill-radar/sources.json`，`skill_radar.py` 被覆盖可从发布包 `vendor/` 重装（`bash vendor/install.sh`）。
 
-安装位置：`~/.workbuddy/skill-radar`（cli 命令 `skill-radar`）。
+安装位置：你安装 skill-radar 的目录（cli 命令 `skill-radar`）。

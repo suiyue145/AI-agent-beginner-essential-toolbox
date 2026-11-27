@@ -5,8 +5,10 @@
   publish_shared_cache.py --file data/shared-scan-cache.json   # 整份覆盖
   publish_shared_cache.py --merge-entry /tmp/one.json          # 只合并一条结果
 
-token 与仓库配置在本机 ~/.workbuddy/github-publish.json（绝不放进仓库）：
-  {"owner": "你的用户名", "repo": "AI-agent-beginner-essential-toolbox",
+仅维护者回传时需要凭据，读者只读云端、无需配置。凭据放在本机配置文件
+（默认 ~/.config/skill-radar/github-publish.json，可用 GITHUB_PUBLISH_CONFIG
+指定实际路径，绝不放进仓库）：
+  {"owner": "你的用户名", "repo": "<你的仓库>",
    "branch": "main", "path": "data/shared-scan-cache.json",
    "token": "ghp_xxx(需要 repo 写权限)"}
 
@@ -27,7 +29,10 @@ from pathlib import Path
 sys.path.insert(0, str(Path(__file__).resolve().parent))
 from shared_cache_common import SCHEMA_VERSION
 
-CONFIG = Path.home() / ".workbuddy" / "github-publish.json"
+CONFIG = Path(os.environ.get(
+    "GITHUB_PUBLISH_CONFIG",
+    str(Path.home() / ".config" / "skill-radar" / "github-publish.json"),
+))
 REPO_ROOT = Path(__file__).resolve().parents[3]
 DEFAULT_FILE = REPO_ROOT / "data" / "shared-scan-cache.json"
 if not DEFAULT_FILE.exists():

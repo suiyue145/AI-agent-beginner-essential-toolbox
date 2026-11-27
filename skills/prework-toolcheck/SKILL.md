@@ -12,6 +12,10 @@ risk: safe
 
 在动手干活之前，先花十几秒看看生态里有没有现成的工具、技能或 MCP 能帮上忙——只列清单、只提醒，绝不偷偷安装。小白不用懂 skill 概念，看完清单点个头就行。
 
+## 路径约定（先看这里）
+
+下文命令里的 `<你的技能目录>` 指**你把本包装到本机后的实际位置**，不是固定路径。不同 Agent 的默认技能目录不一样（例如 Claude Code 常在 `~/.claude/skills`、Codex 常在 `~/.codex/skills`），以你自己的安装位置为准，把占位符替换掉即可。
+
 ## 什么时候用
 
 - **任务开始时被自动触发**（UserPromptSubmit hook 注入提醒）→ 用本技能做开工扫描
@@ -36,7 +40,7 @@ risk: safe
 优先用封装脚本（自带缓存、共享结果、自动存档、失败会降级）：
 
 ```bash
-bash ~/.workbuddy/skills/prework-toolcheck/scripts/scan.sh "<用户原话任务>"
+bash <你的技能目录>/scripts/scan.sh "<用户原话任务>"
 ```
 
 脚本内部按这个顺序取结果，**任一步命中就停**：
@@ -52,13 +56,13 @@ bash ~/.workbuddy/skills/prework-toolcheck/scripts/scan.sh "<用户原话任务>
 
 ```bash
 # 强制本机重扫（忽略本机缓存）
-python3 ~/.workbuddy/skills/prework-toolcheck/scripts/scan_cached.py "<任务>" --force
+python3 <你的技能目录>/scripts/scan_cached.py "<任务>" --force
 # 只强制更新公共清单，本机缓存没过期仍优先用本机
-python3 ~/.workbuddy/skills/prework-toolcheck/scripts/scan_cached.py "<任务>" --refresh-shared
+python3 <你的技能目录>/scripts/scan_cached.py "<任务>" --refresh-shared
 # 本次完全不用云端清单
-python3 ~/.workbuddy/skills/prework-toolcheck/scripts/scan_cached.py "<任务>" --no-shared
+python3 <你的技能目录>/scripts/scan_cached.py "<任务>" --no-shared
 # 本次扫描后不回传 GitHub
-python3 ~/.workbuddy/skills/prework-toolcheck/scripts/scan_cached.py "<任务>" --no-upload
+python3 <你的技能目录>/scripts/scan_cached.py "<任务>" --no-upload
 ```
 
 脚本会输出一段结构化文本：`ALREADY`（本机已装、可直接用的）/ 扫描结果 / `SKIP`（本次不用）。
@@ -100,7 +104,7 @@ skill-radar discover "<任务>" --min-stars 100
 ### 第 5 步：遵守回应
 
 - **用户选了某个要安装的** → 调用 `github-skill-installer` 技能完成安装：
-  1. 先从 `~/.workbuddy/skills/github-skill-installer/references/known-repos.md` 查有没有验证过的仓库地址
+  1. 先从 `<你的技能目录>/../github-skill-installer/references/known-repos.md` 查有没有验证过的仓库地址（两个技能装在同一目录下的情形；否则用你装的 github-skill-installer 的实际路径）
   2. 没有就搜官方仓库，确认来源可靠后，用该技能的安装脚本走 CDN 通道装（本机 git clone/zip/raw 不通、API 限流，别用普通方式）
   3. 装完核对完整性校验结果，如实告诉用户装没装成，提醒下次开会话才进触发列表
 - **用户选了某个已装的** → 直接按那个工具的用法调用，不重复安装

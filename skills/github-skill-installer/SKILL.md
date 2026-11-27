@@ -12,6 +12,10 @@ risk: safe
 
 帮用户把一个 GitHub 上的 skill 稳稳装到本机。本机网络有个已知毛病：`git clone` 会卡在 HTTP2、zip 和 raw 下载域名不通、GitHub API 未认证每小时只有 60 次配额——普通安装方式十有八九失败。这个技能用验证过的办法绕开这些坑。
 
+## 路径约定（先看这里）
+
+下文命令里的 `<你的技能目录>` 指**你把本包装到本机后的实际位置**，不是固定路径。不同 Agent 的默认技能目录不一样（例如 Claude Code 常在 `~/.claude/skills`、Codex 常在 `~/.codex/skills`），以你自己的安装位置为准。安装目标目录可用环境变量 `WB_SKILLS_DIR` 覆盖。
+
 ## 什么时候用
 
 - 用户明确点头要装某个工具/skill（如开工扫描后说"装吧"）
@@ -50,16 +54,20 @@ curl -sL --max-time 30 "https://api.github.com/repos/<owner/repo>/git/trees/main
 ### 第 3 步：执行安装
 
 ```bash
-bash ~/.workbuddy/skills/github-skill-installer/scripts/install.sh <owner/repo> <子目录> <本地名>
+bash <你的技能目录>/scripts/install.sh <owner/repo> <子目录> <本地名>
 ```
 
 例：
 ```bash
-bash ~/.workbuddy/skills/github-skill-installer/scripts/install.sh mvanhorn/last30days-skill skills/last30days last30days
-bash ~/.workbuddy/skills/github-skill-installer/scripts/install.sh DeezGit21/skill-radar . skill-radar-from-gh
+bash <你的技能目录>/scripts/install.sh mvanhorn/last30days-skill skills/last30days last30days
+bash <你的技能目录>/scripts/install.sh DeezGit21/skill-radar . skill-radar-from-gh
 ```
 
-脚本自动完成：取文件树（1 次 API）→ jsDelivr CDN 12 路并发下载（不耗配额）→ 完整性校验 → 运行自检。默认装到 `~/.workbuddy/skills/<本地名>`。
+脚本自动完成：取文件树（1 次 API）→ jsDelivr CDN 12 路并发下载（不耗配额）→ 完整性校验 → 运行自检。默认装到环境变量 `WB_SKILLS_DIR` 指定的目录（未设时是你的主目录下 `skills/`），例如：
+
+```bash
+WB_SKILLS_DIR=<你的技能根目录> bash <你的技能目录>/scripts/install.sh mvanhorn/last30days-skill skills/last30days last30days
+```
 
 分支不是 main 时先设 `GH_BRANCH=master` 再跑。
 

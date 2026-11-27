@@ -35,49 +35,17 @@ npx skills add suiyue145/AI-agent-beginner-essential-toolbox --skill github-skil
 3. 你说"装 XX"或直接开始——**没点头绝不安装**
 4. 点头后由 `github-skill-installer` 走 CDN 通道装，装完校验文件完整性
 
-## 共享扫描结果：先看云端，没有再自己扫，扫完回传
+## 共享扫描结果：先看云端，没有再自己扫
 
 每次开工扫描按这个顺序走：
 
-1. **先查 GitHub**：有没有这个任务 **3 天内** 的扫描结果？有就下载直接用，标 `[云端命中]`。
+1. **先查 GitHub**：有没有这个任务 **3 天内** 的共享结果？有就下载直接用，标 `[云端命中]`。
 2. **再看本机**：GitHub 没有/过期，就看本机 3 天内自己扫过的缓存。
 3. **自己扫**：都没有才现场扫描，结果存本机 3 天。
-4. **回传 GitHub**：本机扫完后自动把这一条合并上传到**公开仓库**，别的机器下次就能匿名直接下载。
 
-云端清单 6 小时最多检查一次；没配 token 或网络不通会自动降级，不卡住。仓库是公开的，使用者匿名即可读取，无需 token。
+共享结果由维护者定期生成，放在公开仓库 `suiyue145/AI-agent-beginner-essential-toolbox`。你**不用配置 token、不用做任何维护**，匿名即可下载；没联网或没收录时会自动降级到本机扫描，不卡住。云端清单 6 小时最多检查一次。
 
-### 维护者配置（使用者不用做）
-
-1. 本机新建 `~/.workbuddy/github-publish.json`（**绝不提交到仓库**）：
-
-```json
-{
-  "owner": "suiyue145",
-  "repo": "AI-agent-beginner-essential-toolbox",
-  "branch": "main",
-  "path": "data/shared-scan-cache.json",
-  "token": "有仓库写权限的 GitHub token（classic，勾 public_repo 即可）"
-}
-```
-
-2. 上传到公开仓库（仓库已存在时不用 `--create-private`）：
-
-```bash
-python3 skills/prework-toolcheck/scripts/publish_shared_cache.py \
-  --file data/shared-scan-cache.json
-```
-
-3. 日常不用管：开工扫描会自动「云端优先 → 本机兜底 → 回传一条」。已配置 WorkBuddy 定时任务每 3 天 08:30 批量生成并上传。手动批量触发：
-
-```bash
-python3 skills/prework-toolcheck/scripts/build_shared_cache.py --output data/shared-scan-cache.json
-python3 skills/prework-toolcheck/scripts/publish_shared_cache.py --file data/shared-scan-cache.json
-```
-
-想改本机要扫哪些任务：编辑 `skills/prework-toolcheck/config/shared-tasks.json`。
-想临时只看本机、不上传：`--no-shared` / `--no-upload`。
-
-> 当前状态：仓库 `suiyue145/AI-agent-beginner-essential-toolbox` 为**公开**，共享结果任何人可匿名下载。
+想临时只看本机、不查云端：给扫描命令加 `--no-shared` / `--no-upload`。
 
 ## 可选依赖
 
@@ -94,21 +62,25 @@ python3 skills/prework-toolcheck/scripts/publish_shared_cache.py --file data/sha
 
 ```bash
 # 1) 安装原版 skill-radar（网络能通 git clone 时）
-git clone --depth 1 https://github.com/DeezGit21/skill-radar.git ~/.workbuddy/skill-radar
-cd ~/.workbuddy/skill-radar && python3 -m pip install -e .
+#    <你选的目录> 换成你的安装位置，例如 ~/.claude/skill-radar、
+#    ~/.codex/skill-radar 或你自己的工具目录，本包不强制具体路径
+git clone --depth 1 https://github.com/DeezGit21/skill-radar.git <你选的目录>/skill-radar
+cd <你选的目录>/skill-radar && python3 -m pip install -e .
 # 若 git clone 不通，可用本包的 github-skill-installer 走 CDN 通道装
 
 # 2) 覆盖为多平台增强版（本仓库根目录执行）
+#    若 skill-radar 装在非默认位置，先指定再运行：
+#    export WB_SKILL_RADAR_DIR="<你选的目录>/skill-radar"
 bash vendor/install.sh
 ```
 
-增强版会自动读取本机已有的 GitHub token（环境变量 `GITHUB_TOKEN` 或 `~/.workbuddy/github-publish.json`）把 API 配额从 60 次/小时提到 5000 次/小时；不配 token 也能匿名扫描，只是较慢。`vendor/install.sh` 会先备份原文件为 `*.bak-multipublish`，可随时还原。
+增强版会自动读取环境变量 `GITHUB_TOKEN`（可选）把 API 配额从 60 次/小时提到 5000 次/小时；不配 token 也能匿名扫描，只是较慢。`vendor/install.sh` 会先备份原文件为 `*.bak-multipublish`，可随时还原。
 
 ## 自动触发（可选，WorkBuddy 用户）
 
 `prework-toolcheck/scripts/hook_user_prompt_submit.py` 是 UserPromptSubmit hook：每个新会话的第一次实质任务会自动提醒先做开工扫描，后续追问不打扰。
 
-把它注册到 Agent 的 hook 配置（`~/.workbuddy/settings.json` 或 `~/.codebuddy/settings.json`）：
+把它注册到 Agent 的 hook 配置文件（即你所用 Agent 的 `settings.json` 路径，例如 Claude Code 用 `~/.claude/settings.json`；路径以你实际安装位置为准）：
 
 ```json
 {

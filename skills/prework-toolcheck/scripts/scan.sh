@@ -4,7 +4,9 @@
 # 依赖: skill-radar 可选；不装也能直接用 GitHub 上的共享扫描结果，不报错
 
 TASK="$1"
-OUT_DIR="${WB_SCAN_OUT:-$HOME/.workbuddy/scan-results}"
+# 存档目录和"本机已装技能"目录都可通过环境变量覆盖，读者按自己 Agent 的实际位置设置
+OUT_DIR="${WB_SCAN_OUT:-${XDG_CACHE_HOME:-$HOME/.cache}/skill-radar/scan-results}"
+SKILLS_DIR="${WB_SKILLS_DIR:-$HOME/skills}"
 mkdir -p "$OUT_DIR"
 TS=$(date "+%Y-%m-%d_%H%M")
 
@@ -18,7 +20,7 @@ echo ""
 # 1) 本机已装技能（直接从目录名读，最可靠）
 echo "[ALREADY] 本机已装、可能用得上的技能："
 echo "---"
-ls "$HOME/.workbuddy/skills/" 2>/dev/null | grep -v '^__' | head -40
+ls "$SKILLS_DIR" 2>/dev/null | grep -v '^__' | head -40 || echo "[提示] 设置 WB_SKILLS_DIR 指向你的技能目录可列出已装技能"
 echo "---"
 echo ""
 

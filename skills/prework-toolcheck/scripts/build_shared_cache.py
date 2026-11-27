@@ -26,7 +26,7 @@ LOCAL_FALLBACK = Path.home() / ".skill-radar" / "shared-scan-cache-local.json"
 
 
 def default_output():
-    # 只在真正的发布仓库结构里写 data/，避免污染 ~/.workbuddy
+    # 只在真正的发布仓库结构里写 data/，否则写到本机缓存目录，不污染用户配置
     root = HERE.parents[2]
     return REPO_DATA if (root / "README.md").exists() else LOCAL_FALLBACK
 

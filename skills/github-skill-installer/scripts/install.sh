@@ -4,13 +4,17 @@
 # 用法: bash install.sh <owner/repo> [仓库内skill子目录] [本地目标名]
 # 例:   bash install.sh mvanhorn/last30days-skill skills/last30days last30days
 #       bash install.sh DeezGit21/skill-radar . skill-radar-from-gh
+#
+# 安装根目录：可用 WB_SKILLS_DIR 指定（如 ~/.claude/skills、~/.codex/skills），
+# 未设时默认 $HOME/skills。本脚本不假设任何特定 Agent 的安装路径。
 
 set -e
 REPO="$1"
 SUBDIR="${2:-.}"
 NAME="${3:-$(basename "$REPO")}"
 BRANCH="${GH_BRANCH:-main}"
-DEST="$HOME/.workbuddy/skills/$NAME"
+SKILLS_ROOT="${WB_SKILLS_DIR:-$HOME/skills}"
+DEST="$SKILLS_ROOT/$NAME"
 TMP="/tmp/ghsi-$$"
 LOG="$TMP/log"
 mkdir -p "$TMP"

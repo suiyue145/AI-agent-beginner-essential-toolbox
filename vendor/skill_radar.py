@@ -125,15 +125,18 @@ def save_json(path, data):
 def gh_token():
     """Read an optional GitHub token to raise the API rate limit.
 
-    Never hard-coded: checks env GITHUB_TOKEN, then the local publish config
-    (~/.workbuddy/github-publish.json). Returns "" if none — scanning still
-    works anonymously at 60 req/hour.
+    Never hard-coded: checks env GITHUB_TOKEN, then an optional local config
+    (path from GITHUB_PUBLISH_CONFIG, default ~/.config/skill-radar/github-publish.json).
+    Returns "" if none — scanning still works anonymously at 60 req/hour.
     """
     tok = os.environ.get("GITHUB_TOKEN", "").strip()
     if tok:
         return tok
     try:
-        cfg = Path.home() / ".workbuddy" / "github-publish.json"
+        cfg = Path(os.environ.get(
+            "GITHUB_PUBLISH_CONFIG",
+            str(Path.home() / ".config" / "skill-radar" / "github-publish.json"),
+        ))
         if cfg.exists():
             tok = str(json.loads(cfg.read_text()).get("token", "")).strip()
             if tok and not tok.startswith("PLACEHOLDER"):

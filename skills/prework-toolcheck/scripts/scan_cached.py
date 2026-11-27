@@ -39,7 +39,12 @@ CACHE_FILE = Path(os.environ.get("SKILL_RADAR_CACHE", str(Path.home() / ".skill-
 SHARED_DOWNLOAD = Path(os.environ.get("SKILL_RADAR_SHARED_DOWNLOAD", str(Path.home() / ".skill-radar" / "shared-cache-download.json")))
 LOCAL_SOURCE = Path(os.environ.get("SKILL_RADAR_SHARED_SOURCE", str(Path.home() / ".skill-radar" / "shared-source.json")))
 SKILL_SOURCE = HERE.parent / "config" / "shared-source.json"
-GITHUB_CONFIG = Path.home() / ".workbuddy" / "github-publish.json"
+# 可选的本机凭据路径：仅回传结果时才需要，读者只读云端不用配。
+# 读者若在本机放了凭据，用 GITHUB_PUBLISH_CONFIG 指定其实际位置即可。
+GITHUB_CONFIG = Path(os.environ.get(
+    "GITHUB_PUBLISH_CONFIG",
+    str(Path.home() / ".config" / "skill-radar" / "github-publish.json"),
+))
 API = "https://api.github.com"
 MIN_STARS = 100
 

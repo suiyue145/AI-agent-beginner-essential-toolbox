@@ -6,7 +6,7 @@
 
 - 仓库：`suiyue145/AI-agent-beginner-essential-toolbox`（**Public**）
 - 共享结果：`data/shared-scan-cache.json`，已上传并回读验证 10 条，任何人可匿名读取。
-- 本机凭据：`~/.workbuddy/github-publish.json`（权限 600，**绝不提交到仓库**）。
+- 本机凭据：`~/.config/skill-radar/github-publish.json`（权限 600，**绝不提交到仓库**；可用 `GITHUB_PUBLISH_CONFIG` 改路径）。
 - 定时任务：每 3 天 08:30 批量生成并上传整份结果。
 - 读取无需 token：匿名走 jsDelivr CDN / raw；有 token 时优先 GitHub API。
 - 回传需要 token：本机扫描出的新条目合并上传，需要写权限（public_repo 足够）。
@@ -48,10 +48,10 @@ skillhub publish
 
 ```bash
 # 1) 凭据（放在仓库外，绝不提交）
-cat > ~/.workbuddy/github-publish.json <<'EOF'
+cat > ~/.config/skill-radar/github-publish.json <<'EOF'
 {"owner":"suiyue145","repo":"AI-agent-beginner-essential-toolbox","branch":"main","path":"data/shared-scan-cache.json","token":"ghp_xxx"}
 EOF
-chmod 600 ~/.workbuddy/github-publish.json
+chmod 600 ~/.config/skill-radar/github-publish.json
 
 # 2) 上传整份结果（仓库已存在，不用 --create-private）
 python3 skills/prework-toolcheck/scripts/publish_shared_cache.py --check

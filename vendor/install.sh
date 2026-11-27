@@ -1,12 +1,13 @@
 #!/usr/bin/env bash
 # 一键把"多平台增强版" skill-radar 装到本机，覆盖原版窄扫描逻辑。
 # 用法：bash vendor/install.sh
-# 覆盖内容：~/.workbuddy/skill-radar/skill_radar.py  和  ~/.skill-radar/sources.json
+# 覆盖内容：<你安装的 skill-radar 目录>/skill_radar.py  和  ~/.skill-radar/sources.json
+# 安装目录用环境变量 WB_SKILL_RADAR_DIR 指定，未设时默认 $HOME/skill-radar。
 # 不碰任何 token，不改系统其他位置。
 
 set -e
 HERE="$(cd "$(dirname "$0")" && pwd)"
-TARGET_DIR="${HOME}/.workbuddy/skill-radar"
+TARGET_DIR="${WB_SKILL_RADAR_DIR:-${HOME}/skill-radar}"
 RADAR_PY="${TARGET_DIR}/skill_radar.py"
 SOURCES="${HOME}/.skill-radar/sources.json"
 
@@ -61,4 +62,4 @@ skill-radar list-sources 2>/dev/null | grep -E 'skillsh-hot|official-catalogs|wo
 
 echo ""
 echo "完成。现在扫描会覆盖：skills.sh 热门（跨平台）、Anthropic / Codex / Vercel / DeepSeek Harness / Hermes 官方目录、WorkBuddy topic、MCP 注册表。"
-echo "如需让 GitHub API 配额从 60次/小时 提升到 5000次/小时，可设置环境变量 GITHUB_TOKEN，或在本机 ~/.workbuddy/github-publish.json 里放 token（不会进仓库）。"
+echo "如需让 GitHub API 配额从 60次/小时 提升到 5000次/小时，设置环境变量 GITHUB_TOKEN 即可（可选，不设也能匿名扫描）。"
