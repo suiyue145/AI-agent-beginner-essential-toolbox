@@ -8,7 +8,9 @@
   4) 本机扫描成功后，把这一条上传到 GitHub（公开仓库）
 
 用法：
-  scan_cached.py "<任务>"                 # 按上面顺序
+  scan_cached.py "<任务>"                 # 按上面顺序（会联网）
+  scan_cached.py "<任务>" --offline       # 只读本机已存数据，不联网/不重扫/不回传（开工默认）
+  scan_cached.py "<任务>" --online        # 显式允许联网（等价默认行为，便于和 --offline 对照）
   scan_cached.py "<任务>" --force         # 跳过远端和本机缓存，强制本机重扫
   scan_cached.py "<任务>" --refresh-shared# 强制重新下载云端清单
   scan_cached.py "<任务>" --no-shared      # 本次完全不用云端结果
@@ -237,6 +239,7 @@ def fmt_duration(sec, suffix="前"):
 def main():
     ap = argparse.ArgumentParser(description="GitHub 共享结果优先的开工扫描")
     ap.add_argument("task", help="任务描述")
+    ap.add_argument("--offline", action="store_true", help="只读本机已存数据（本机缓存 + 本地暂存云端副本），绝不联网、不现场扫描、不回传")
     ap.add_argument("--force", action="store_true", help="跳过远端和本机缓存，强制本机重扫")
     ap.add_argument("--no-cache", action="store_true", help="本次绕过缓存且不写入")
     ap.add_argument("--no-shared", action="store_true", help="本次不下载/使用云端结果")
@@ -252,6 +255,30 @@ def main():
 
     cache = load_cache()
     now = time.time()
+
+    # 0) 离线模式（开工默认）：只读本机已存数据，绝不联网。
+    # 数据源 = 本机 scan-cache.json（含之前云端命中写入的条目）+ 本地暂存的云端副本
+    # shared-cache-download.json。两者都是磁盘上已有文件，读取不产生任何网络请求。
+    if args.offline:
+        entry = cache.get(key)
+        src = "本机缓存"
+        if not entry:
+            dl = load_download().get("data")
+            if isinstance(dl, dict):
+                hit = dl.get("entries", {}).get(key)
+                if hit:
+                    entry, src = hit, "本地暂存的云端副本"
+        if entry:
+            age = now - float(entry.get("ts", 0) or 0)
+            print(f"[离线命中·{src}] 读取本机已存结果（{fmt_duration(age) if age >= 0 else '未知时间'}），本次未联网")
+            print(f"[关键词] {', '.join(entry.get('keywords', kws))}")
+            print("=" * 50)
+            print(entry_output(entry))
+        else:
+            print("[离线未命中] 本机已存数据里没有这类任务的预存结果；按设置本次不联网扫描。")
+            print("本机已装技能清单仍会由 scan.sh 列出，可直接据此开工。如需联网获取最新结果，请明确说“重新扫/刷新”。")
+        print("=" * 50)
+        return
 
     # 1) GitHub 优先：3 天内的共享结果直接用
     shared_reason = ""

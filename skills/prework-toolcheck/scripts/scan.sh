@@ -24,19 +24,22 @@ ls "$SKILLS_DIR" 2>/dev/null | grep -v '^__' | head -40 || echo "[提示] 设置
 echo "---"
 echo ""
 
-# 2) 取工具清单：本机缓存 → GitHub 共享结果 →（有 radar 时）现场扫描
+# 2) 取工具清单：默认只读本机已存数据，不联网（--online 时才下载/现场扫描/回传）
 SKILL_DIR="$(cd "$(dirname "$0")/.." && pwd)"
 CACHED="$SKILL_DIR/scripts/scan_cached.py"
+MODE="--offline"
+[ "$2" = "--online" ] && MODE=""
 if [ -f "$CACHED" ]; then
   LOG="$OUT_DIR/开工扫描_${TS}.txt"
-  ( python3 "$CACHED" "$TASK" 2>&1 || echo "[WARN] 扫描部分失败，已装技能清单仍可用" ) | tee "$LOG"
+  [ "$MODE" = "--offline" ] && echo "[离线模式] 只读本机已存数据，不联网、不现场扫描、不回传"
+  ( python3 "$CACHED" "$TASK" $MODE 2>&1 || echo "[WARN] 扫描部分失败，已装技能清单仍可用" ) | tee "$LOG"
   echo ""
   echo "完整扫描结果已存档：$LOG"
-elif command -v skill-radar >/dev/null 2>&1; then
+elif [ "$MODE" = "--online" ] && command -v skill-radar >/dev/null 2>&1; then
   echo "[WARN] 缓存包装器缺失，退回直接扫描"
   skill-radar discover "$TASK" --min-stars 100 2>&1 || echo "[WARN] 扫描失败"
 else
-  echo "[WARN] 缓存包装器和共享结果均不可用，仅返回已装技能清单。"
+  echo "[WARN] 缓存包装器不可用（离线模式不现场扫描），仅返回已装技能清单。"
 fi
 
 echo ""
