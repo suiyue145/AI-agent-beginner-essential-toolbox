@@ -1,0 +1,7 @@
+{
+  "owner": "suiyue145",
+  "repo": "AI-agent-beginner-essential-toolbox",
+  "branch": "main",
+  "path": "data/shared-scan-cache.json",
+  "_comment": "共享扫描结果的公开仓库；使用者安装后不用改这个文件。也可在本机 ~/.skill-radar/shared-source.json 覆盖。"
+}
