@@ -67,7 +67,7 @@ python3 skills/prework-toolcheck/scripts/publish_shared_cache.py \
   --file data/shared-scan-cache.json
 ```
 
-3. 日常不用管：开工扫描会自动「云端优先 → 本机兜底 → 回传一条」。已配置 WorkBuddy 定时任务每天 08:30 批量生成并上传。手动批量触发：
+3. 日常不用管：开工扫描会自动「云端优先 → 本机兜底 → 回传一条」。已配置 WorkBuddy 定时任务每 3 天 08:30 批量生成并上传。手动批量触发：
 
 ```bash
 python3 skills/prework-toolcheck/scripts/build_shared_cache.py --output data/shared-scan-cache.json

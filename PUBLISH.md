@@ -7,7 +7,7 @@
 - 仓库：`suiyue145/AI-agent-beginner-essential-toolbox`（**Public**）
 - 共享结果：`data/shared-scan-cache.json`，已上传并回读验证 10 条，任何人可匿名读取。
 - 本机凭据：`~/.workbuddy/github-publish.json`（权限 600，**绝不提交到仓库**）。
-- 定时任务：每天 08:30 批量生成并上传整份结果。
+- 定时任务：每 3 天 08:30 批量生成并上传整份结果。
 - 读取无需 token：匿名走 jsDelivr CDN / raw；有 token 时优先 GitHub API。
 - 回传需要 token：本机扫描出的新条目合并上传，需要写权限（public_repo 足够）。
 
@@ -62,7 +62,7 @@ python3 skills/prework-toolcheck/scripts/publish_shared_cache.py --file data/sha
 python3 skills/prework-toolcheck/scripts/scan_cached.py "调研市场方向并生成报告"
 ```
 
-WorkBuddy 自动化任务每天 08:30 批量生成+上传；没配 token 时只在本机生成，不会失败报错。改扫描范围编辑 `skills/prework-toolcheck/config/shared-tasks.json`。
+WorkBuddy 自动化任务每 3 天 08:30 批量生成+上传；没配 token 时只在本机生成，不会失败报错。改扫描范围编辑 `skills/prework-toolcheck/config/shared-tasks.json`。
 
 ## 本地自检命令
 
