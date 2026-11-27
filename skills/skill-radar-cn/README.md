@@ -7,7 +7,7 @@ Scan for essential tools before starting work and list candidates for you to cho
 - **Multi-source scanning**: covers skills.sh popular list, official directories (Anthropic / OpenAI Codex / Vercel / DeepSeek Harness / Hermes Agent), platform topics, the MCP registry, and GitHub search.
 - **Cloud-first**: check GitHub for shared scan results from the last 3 days (anonymous read); stop on a hit, otherwise use local cache, then live scan.
 - **Result upload**: successful local scans are merged and uploaded to the public repository for other machines; gracefully degrades when offline or without a token.
-- **Chinese-friendly**: built-in Chinese-to-English keyword mapping (e.g. 调研市场 → research market), so varied phrasing still matches.
+- **Chinese-friendly**: built-in Chinese-to-English keyword mapping for common task terms, so varied phrasing still matches.
 - **Recommend only**: grouped by category with name, stars, one-line description, and reason — you decide what to install.
 
 ## Installation
