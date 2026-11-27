@@ -22,6 +22,7 @@ import argparse
 import base64
 import json
 import os
+import re
 import subprocess
 import sys
 import tempfile
@@ -270,13 +271,15 @@ def main():
                     entry, src = hit, "本地暂存的云端副本"
         if entry:
             age = now - float(entry.get("ts", 0) or 0)
+            print("[结果:有相关工具]")
             print(f"[离线命中·{src}] 读取本机已存结果（{fmt_duration(age) if age >= 0 else '未知时间'}），本次未联网")
             print(f"[关键词] {', '.join(entry.get('keywords', kws))}")
             print("=" * 50)
             print(entry_output(entry))
         else:
+            print("[结果:无相关工具]")
             print("[离线未命中] 本机已存数据里没有这类任务的预存结果；按设置本次不联网扫描。")
-            print("本机已装技能清单仍会由 scan.sh 列出，可直接据此开工。如需联网获取最新结果，请明确说“重新扫/刷新”。")
+            print("没有与本次任务相关的 skill，不用提示安装，直接开工即可。")
         print("=" * 50)
         return
 
@@ -291,6 +294,7 @@ def main():
                 cache[key] = dict(hit, source="shared")
                 save_cache(cache)
                 where = "刚下载" if newly else "本地暂存的云端副本"
+                print("[结果:有相关工具]")
                 print(f"[云端命中] 从 GitHub 找到 3 天内的扫描结果（{where}，生成于 {shared.get('generated_at', '未知')}），无需本机扫描")
                 print(f"[关键词] {', '.join(hit.get('keywords', kws))}")
                 print("=" * 50)
@@ -304,6 +308,7 @@ def main():
         age = now - entry.get("ts", 0)
         if age < TTL_SECONDS:
             src = "共享清单" if entry.get("source") == "shared" else "本机扫描"
+            print("[结果:有相关工具]")
             print(f"[本机缓存命中·{src}] 结果来自 {fmt_duration(age)}，还有效 {fmt_duration(TTL_SECONDS - age, '')}")
             print(f"[关键词] {', '.join(entry.get('keywords', kws))}")
             print("=" * 50)
@@ -319,6 +324,24 @@ def main():
         reason = "首次扫描该任务"
     print(f"[执行扫描] {shared_reason}{reason}｜关键词: {', '.join(kws) if kws else '(无)'}")
     out, ok = do_scan(args.task)
+
+    # 扫到相关工具的判定：扫描命令成功且输出里确实列出了技能条目。
+    # skill-radar 的结果行形如 "1. xxx" 或带 URL/★ 的条目，只用表头不算命中。
+    def _has_skill_items(text):
+        for line in (text or "").splitlines():
+            s = line.strip()
+            if not s:
+                continue
+            if re.match(r"^\d+[.)]\s+\S", s):
+                return True
+            if "http" in s and ("★" in s or "github.com" in s):
+                return True
+        return False
+
+    if ok and _has_skill_items(out):
+        print("[结果:有相关工具]")
+    else:
+        print("[结果:无相关工具]")
 
     if ok and not args.no_cache:
         new_entry = {
